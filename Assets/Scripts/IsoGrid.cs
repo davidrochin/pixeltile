@@ -5,20 +5,34 @@ using UnityEngine;
 public class IsoGrid : MonoBehaviour {
 
     public IsoTile[,,] grid = new IsoTile[0, 0, 0];
-    public Sprite tileTestSprite;
+    public IsoPalette palette;
+
+    public bool loadTestGrid = false;
 
 	void Awake () {
 		
 	}
 
     void Start() {
-        LoadTestGrid();
-        Build();
+        if (loadTestGrid) {
+            LoadTestGrid();
+            Build();
+        } 
     }
 
     void Update () {
 		
 	}
+
+    public int CalculateSortingOrder(Vector3 pos) {
+        int x = Mathf.RoundToInt(pos.x);
+        int y = Mathf.RoundToInt(pos.y + 0.1f);
+        int z = Mathf.RoundToInt(pos.z);
+
+        Debug.Log(x + ", " + y + ", " + z);
+
+        return - x - z + y;
+    }
 
     public void Build() {
 
@@ -34,7 +48,7 @@ public class IsoGrid : MonoBehaviour {
                     SpriteRenderer spriteRenderer = tileSpriteObject.AddComponent<SpriteRenderer>();
                     IsoTile isoTile = tileObject.AddComponent<IsoTile>();
                     BoxCollider boxCollider = tileObject.AddComponent<BoxCollider>();
-                    spriteRenderer.sprite = tileTestSprite;
+                    spriteRenderer.sprite = palette.sprites[Random.Range(0, palette.sprites.Count - 1)];
 
                     // Acomodar
                     tileObject.transform.position = new Vector3(x, y - heightCorrection * y, z);
