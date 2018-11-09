@@ -2,10 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IsoTile {
+[SelectionBase]
+public class IsoTile : MonoBehaviour {
 
     public string sprite_name;
-    public CollisionType collisionType;
 
-    public enum CollisionType { None, Block, Small }
+    GameObject spriteObject;
+
+    private void Start() {
+        spriteObject = transform.Find("Sprite").gameObject;
+        spriteObject.transform.rotation = Camera.main.transform.rotation;
+        //spriteObject.transform.localScale = Vector3.one * (Mathf.Sqrt(2));
+
+    }
+
+    private void Update() {
+        spriteObject = transform.Find("Sprite").gameObject;
+        spriteObject.transform.rotation = Camera.main.transform.rotation;
+    }
+
 }
