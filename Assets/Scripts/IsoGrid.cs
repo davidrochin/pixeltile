@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class IsoGrid : MonoBehaviour {
 
-    public IsoTile[,,] grid = new IsoTile[0, 0, 0];
     public IsoPalette palette;
+
+    public IsoGridSerializable grid;
 
     public bool loadTestGrid = false;
 
@@ -19,10 +20,6 @@ public class IsoGrid : MonoBehaviour {
             Build();
         } 
     }
-
-    void Update () {
-		
-	}
 
     public int CalculateSortingOrder(Vector3 pos) {
         int x = Mathf.RoundToInt(pos.x);
@@ -54,7 +51,7 @@ public class IsoGrid : MonoBehaviour {
                     tileObject.transform.position = new Vector3(x, y - heightCorrection * y, z);
 
                     // Ajustar orden
-                    spriteRenderer.sortingOrder = -x + y - z;
+                    spriteRenderer.sortingOrder = - x + y - z;
 
                     tileObject.transform.parent = transform;
                 }
@@ -63,13 +60,48 @@ public class IsoGrid : MonoBehaviour {
     }
 
     public void LoadTestGrid() {
-        grid = new IsoTile[8, 8, 8];
+        grid = new IsoGridSerializable(8, 8, 8);
         for(int x = 0; x < grid.GetLength(0); x++) {
             for (int y = 0; y < grid.GetLength(1); y++) {
                 for (int z = 0; z < grid.GetLength(2); z++) {
-                    grid[x, y, z] = new IsoTile() { sprite_name = "1" };
+                    grid[x, y, z] = new IsoTileSerializable() { spriteName = "1" };
                 }
             }
+        }
+    }
+}
+
+[System.Serializable]
+public class IsoGridSerializable {
+
+    public IsoTileSerializable[] gridArray;
+
+    public int sizeX, sizeY, sizeZ;
+
+    public IsoGridSerializable(int x, int y, int z) {
+        sizeX = x; sizeY = y; sizeZ = z;
+        gridArray = new IsoTileSerializable[x * y * z];
+    }
+
+    public IsoTileSerializable this[int x, int y, int z] {
+        get {
+            return gridArray[sizeX * x + sizeY * y + sizeZ * z];
+        }
+        set {
+            gridArray[sizeX * x + sizeY * y + sizeZ * z] = value;
+        }
+    }
+
+    public int GetLength(int d) {
+        switch (d) {
+            case 0:
+                return sizeX;
+            case 1:
+                return sizeY;
+            case 2:
+                return sizeZ;
+            default:
+                throw new System.Exception();
         }
     }
 }

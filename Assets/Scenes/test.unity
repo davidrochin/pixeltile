@@ -141,6 +141,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   palette: {fileID: 11400000, guid: 4e284b863da242d4eba7df9e52cd3985, type: 2}
+  grid:
+    gridArray: []
+    sizeX: 0
+    sizeY: 0
+    sizeZ: 0
   loadTestGrid: 1
 --- !u!4 &468298389
 Transform:
@@ -287,7 +292,7 @@ MonoBehaviour:
   walkBehaviour: 1
   walkSpeed: 4
   maxWalkMagnitude: 2
-  walkSmoothness: 16
+  walkSmoothness: 32
   slopeLimit: 50
   slopeBehaviour: 0
   turnBehaviour: 1

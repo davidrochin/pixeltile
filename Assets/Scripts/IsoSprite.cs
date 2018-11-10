@@ -15,7 +15,7 @@ public class IsoSprite : MonoBehaviour {
 	void Update () {
         transform.rotation = Camera.main.transform.rotation;
         if(currentGrid != null) {
-            renderer.sortingOrder = currentGrid.CalculateSortingOrder(transform.position) + 1;
+            renderer.sortingOrder = currentGrid.CalculateSortingOrder(transform.position) + 2;
         }
 	}
 }
