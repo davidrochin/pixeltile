@@ -23,13 +23,16 @@ public class IsoGrid : MonoBehaviour {
     }
 
     public int CalculateSortingOrder(Vector3 pos) {
+        return CalculateSortingOrder(pos, 0, 0, 0);
+    }
+
+    public int CalculateSortingOrder(Vector3 pos, int offsetX, int offsetY, int offsetZ) {
         int x = Mathf.RoundToInt(pos.x);
-        int y = Mathf.RoundToInt(pos.y + 0.1f);
+        int y = Mathf.RoundToInt(pos.y);
         int z = Mathf.RoundToInt(pos.z);
 
-        Debug.Log(x + ", " + y + ", " + z);
-
-        return - x - z + y;
+        int floorAdition = grid.sizeX * grid.sizeZ;
+        return - (x + offsetX) + (y + offsetY) - (z + offsetZ);
     }
 
     public void GenerateSprites() {
@@ -49,6 +52,7 @@ public class IsoGrid : MonoBehaviour {
                     tileObject.transform.position = new Vector3(x, y + heightCorrection * y, z);
 
                     // Ajustar orden
+                    int floorAdition = grid.sizeX * grid.sizeZ;
                     spriteRenderer.sortingOrder = - x + y - z;
 
                     tileObject.transform.parent = transform;
