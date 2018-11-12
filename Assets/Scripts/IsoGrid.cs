@@ -9,15 +9,16 @@ public class IsoGrid : MonoBehaviour {
     public IsoGridSerializable grid;
 
     public bool loadTestGrid = false;
+    public float heightCorrection = -0.15f;
 
-	void Awake () {
+    void Awake () {
 		
 	}
 
     void Start() {
         if (loadTestGrid) {
             LoadTestGrid();
-            Build();
+            GenerateSprites();
         } 
     }
 
@@ -31,10 +32,7 @@ public class IsoGrid : MonoBehaviour {
         return - x - z + y;
     }
 
-    public void Build() {
-
-        float heightCorrection = 0.15f;
-
+    public void GenerateSprites() {
         for (int x = 0; x < grid.GetLength(0); x++) {
             for (int y = 0; y < grid.GetLength(1); y++) {
                 for (int z = 0; z < grid.GetLength(2); z++) {
@@ -48,14 +46,21 @@ public class IsoGrid : MonoBehaviour {
                     spriteRenderer.sprite = palette.sprites[Random.Range(0, palette.sprites.Count - 1)];
 
                     // Acomodar
-                    tileObject.transform.position = new Vector3(x, y - heightCorrection * y, z);
+                    tileObject.transform.position = new Vector3(x, y + heightCorrection * y, z);
 
                     // Ajustar orden
                     spriteRenderer.sortingOrder = - x + y - z;
 
                     tileObject.transform.parent = transform;
+                    isoTile.CorrectRotation();
                 }
             }
+        }
+    }
+
+    public void ClearSprites() {
+        while (transform.childCount != 0) {
+            DestroyImmediate(transform.GetChild(0).gameObject);
         }
     }
 

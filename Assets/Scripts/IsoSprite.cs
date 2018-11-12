@@ -7,7 +7,7 @@ public class IsoSprite : MonoBehaviour {
     IsoGrid currentGrid;
     SpriteRenderer renderer;
 
-	void Start () {
+	void Awake () {
         currentGrid = FindObjectOfType<IsoGrid>();
         renderer = GetComponent<SpriteRenderer>();
     }
@@ -15,7 +15,7 @@ public class IsoSprite : MonoBehaviour {
 	void Update () {
         transform.rotation = Camera.main.transform.rotation;
         if(currentGrid != null) {
-            renderer.sortingOrder = currentGrid.CalculateSortingOrder(transform.position) + 2;
+            renderer.sortingOrder = currentGrid.CalculateSortingOrder(transform.position) + 1;
         }
 	}
 }

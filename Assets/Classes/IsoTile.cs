@@ -9,14 +9,11 @@ public class IsoTile : MonoBehaviour {
 
     GameObject spriteObject;
 
-    private void Start() {
-        spriteObject = transform.Find("Sprite").gameObject;
-        spriteObject.transform.rotation = Camera.main.transform.rotation;
-        //spriteObject.transform.localScale = Vector3.one * (Mathf.Sqrt(2));
-
+    private void Awake() {
+        CorrectRotation();
     }
 
-    private void Update() {
+    public void CorrectRotation() {
         spriteObject = transform.Find("Sprite").gameObject;
         spriteObject.transform.rotation = Camera.main.transform.rotation;
     }
