@@ -23239,6 +23239,7 @@ GameObject:
   - component: {fileID: 985424531}
   - component: {fileID: 985424532}
   - component: {fileID: 985424533}
+  - component: {fileID: 985424534}
   m_Layer: 8
   m_Name: Graphic
   m_TagString: Untagged
@@ -23253,7 +23254,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 985424530}
   m_LocalRotation: {x: 0.23911765, y: 0.3696438, z: -0.09904577, w: 0.89239913}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 947319163}
@@ -23316,6 +23317,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a422032c20847444db2532f949020fc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!111 &985424534
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 985424530}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &986688298
 GameObject:
   m_ObjectHideFlags: 0

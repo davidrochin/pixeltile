@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   name: Player
-  speed: 1
-  spriteSheet: {fileID: 21300000, guid: d088c73918ed4cd418b0704b50d89291, type: 3}
+  speed: 3
+  graphics:
+    spriteSheet: {fileID: 21300000, guid: d088c73918ed4cd418b0704b50d89291, type: 3}
+    shadowSize: 0.5
