@@ -19,15 +19,40 @@ public class CharacterData : ScriptableObject {
 public class CharacterGraphics {
     public Sprite spriteSheet;
     public float shadowSize = 0.5f;
+    public float pivotHeight = 0.2352f;
 
-    public Sprite[] GetSprites(AnimationType animationType) {
+    public Sprite[] GetAnimation(Animation animation) {
         List<Sprite> sprites = new List<Sprite>();
-        switch (animationType) {
-            case AnimationType.IdleSouth:
-                sprites.Add(GetSprite(0));
-                break;
+        int animationNumber = (int)animation;
+        return GetAnimation(animationNumber);
+    }
+
+    public Sprite[] GetAnimation(AnimationType type, CardinalDirection direction) {
+        if(type == AnimationType.Running) {
+            switch (direction) {
+                case CardinalDirection.S:
+                    return GetAnimation(Animation.RunningS);
+                case CardinalDirection.SW:
+                    //return GetAnimation(Animation.RunningSW);
+                    return GetAnimation(Animation.RunningS);
+                case CardinalDirection.W:
+                    return GetAnimation(Animation.RunningW);
+                case CardinalDirection.NW:
+                    //return GetAnimation(Animation.RunningNW);
+                    return GetAnimation(Animation.RunningN);
+                case CardinalDirection.N:
+                    return GetAnimation(Animation.RunningN);
+                case CardinalDirection.NE:
+                    //return GetAnimation(Animation.RunningNE);
+                    return GetAnimation(Animation.RunningN);
+                case CardinalDirection.E:
+                    return GetAnimation(Animation.RunningE);
+                case CardinalDirection.SE:
+                    //return GetAnimation(Animation.RunningSE);
+                    return GetAnimation(Animation.RunningS);
+            }
         }
-        return sprites.ToArray();
+        return GetAnimation(Animation.IdleS);
     }
 
     public Sprite[] GetAnimation(int row) {
@@ -35,14 +60,14 @@ public class CharacterGraphics {
         int posX = 0; int posY = ((int)spriteSheet.rect.height - TILE_SIZE_Y) - TILE_SIZE_Y * row;
         int maxSprites = (int)spriteSheet.rect.width / TILE_SIZE_X;
         for (int x = 0; x < maxSprites; x++) {
-            sprites.Add(Sprite.Create(spriteSheet.texture, new Rect(x * TILE_SIZE_X, posY, TILE_SIZE_X, TILE_SIZE_Y), new Vector2(0.5f, 0.5f), PPU));
+            sprites.Add(Sprite.Create(spriteSheet.texture, new Rect(x * TILE_SIZE_X, posY, TILE_SIZE_X, TILE_SIZE_Y), new Vector2(0.5f, pivotHeight), PPU));
         }
         return sprites.ToArray();
     }
 
     public Sprite GetSprite(int number) {
         int posX = 0; int posY = (int)spriteSheet.rect.height - TILE_SIZE_Y;
-        return Sprite.Create(spriteSheet.texture, new Rect(posX, posY, TILE_SIZE_X, TILE_SIZE_Y), new Vector2(0.5f, 0.5f), PPU);
+        return Sprite.Create(spriteSheet.texture, new Rect(posX, posY, TILE_SIZE_X, TILE_SIZE_Y), new Vector2(0.5f, pivotHeight), PPU);
     }
 
     public const int SHEET_COUNT_X = 4;
@@ -50,5 +75,13 @@ public class CharacterGraphics {
     public const int TILE_SIZE_X = 32;
     public const int TILE_SIZE_Y = 34;
     public const float PPU = 22.62742f;
-    public enum AnimationType { IdleSouth, IdleWest, IdleEast, IdleNorth }
+}
+
+public enum AnimationType {
+    Idle, Running
+}
+
+public enum Animation {
+    IdleS, IdleSW, IdleW, IdleNW, IdleN, IdleNE, IdleE, IdleSE,
+    RunningS, RunningSW, RunningW, RunningNW, RunningN, RunningNE, RunningE, RunningSE
 }

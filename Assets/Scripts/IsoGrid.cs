@@ -46,7 +46,7 @@ public class IsoGrid : MonoBehaviour {
                     SpriteRenderer spriteRenderer = tileSpriteObject.AddComponent<SpriteRenderer>();
                     IsoTile isoTile = tileObject.AddComponent<IsoTile>();
                     BoxCollider boxCollider = tileObject.AddComponent<BoxCollider>();
-                    spriteRenderer.sprite = palette.sprites[Random.Range(0, palette.sprites.Count - 1)];
+                    spriteRenderer.sprite = palette.tileData[Random.Range(0, palette.tileData.Count - 1)].sprite;
 
                     // Acomodar
                     tileObject.transform.position = new Vector3(x, y + heightCorrection * y, z);

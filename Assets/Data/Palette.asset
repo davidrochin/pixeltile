@@ -11,5 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4045dbe2dd31c7e46bbaa31a5426d7d4, type: 3}
   m_Name: Palette
   m_EditorClassIdentifier: 
-  sprites:
-  - {fileID: 21300000, guid: 50ca490b017d2044a858f30adcae418a, type: 3}
+  tileData:
+  - sprite: {fileID: 21300000, guid: 50ca490b017d2044a858f30adcae418a, type: 3}
+    collider: 0

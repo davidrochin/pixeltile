@@ -29,7 +29,7 @@ public class IsoGridEditor : Editor {
 
     private void OnSceneGUI() {
         Handles.BeginGUI();
-        if (GUI.Button(new Rect(0, 0, 100, 20), "Isometric View")) {
+        if (GUI.Button(new Rect(5, 5, 100, 20), "Isometric View")) {
             SceneView.lastActiveSceneView.orthographic = true;
             SceneView.lastActiveSceneView.rotation = Quaternion.Euler(30f, 45f, 0f);
         }
