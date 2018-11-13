@@ -32,7 +32,11 @@ public class IsoGrid : MonoBehaviour {
         int z = Mathf.RoundToInt(pos.z);
 
         int floorAdition = grid.sizeX * grid.sizeZ;
-        return - (x + offsetX) + (y + offsetY) - (z + offsetZ);
+        return CalculateSortingOrder(x + offsetX, y + offsetY, z + offsetZ);
+    }
+
+    public int CalculateSortingOrder(int x, int y, int z) {
+        return - x * 100 + y * 100 - z * 100;
     }
 
     public void GenerateSprites() {
@@ -53,7 +57,7 @@ public class IsoGrid : MonoBehaviour {
 
                     // Ajustar orden
                     int floorAdition = grid.sizeX * grid.sizeZ;
-                    spriteRenderer.sortingOrder = - x + y - z;
+                    spriteRenderer.sortingOrder = CalculateSortingOrder(x, y, z);
 
                     tileObject.transform.parent = transform;
                     isoTile.CorrectRotation();

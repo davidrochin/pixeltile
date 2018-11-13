@@ -8,6 +8,12 @@ public class IsoSprite : MonoBehaviour {
     SpriteRenderer renderer;
     public CapsuleCollider collider;
 
+    public bool automaticSorting = true;
+    public int sortingOffset = 0;
+    public SpriteRenderer alwaysOnBehindOf;
+
+    public event Action OnAutoSort;
+
 	void Awake () {
         currentGrid = FindObjectOfType<IsoGrid>();
         renderer = GetComponent<SpriteRenderer>();
@@ -21,7 +27,26 @@ public class IsoSprite : MonoBehaviour {
             // En lugar de tomar la posicion, tomar la posicion "más enfrente" (X y Y negativos)
 
             //Debug.Log(new Vector3(collider.bounds.min.x, transform.position.y, collider.bounds.min.z));
-            renderer.sortingOrder = currentGrid.CalculateSortingOrder(new Vector3(collider.bounds.min.x, transform.position.y, collider.bounds.min.z)) + 1;
+
+            if (automaticSorting) {
+                if (collider != null) {
+                    renderer.sortingOrder = currentGrid.CalculateSortingOrder(new Vector3(collider.bounds.min.x, transform.position.y, collider.bounds.min.z)) + sortingOffset;
+                } else {
+                    renderer.sortingOrder = currentGrid.CalculateSortingOrder(new Vector3(transform.position.x, transform.position.y, transform.position.z)) + sortingOffset;
+                }
+
+                if(OnAutoSort != null) {
+                    OnAutoSort();
+                }
+            }
         }
 	}
+
+    private void LateUpdate() {
+        if (automaticSorting && alwaysOnBehindOf != null) {
+            if (renderer.sortingOrder >= alwaysOnBehindOf.sortingOrder) {
+                renderer.sortingOrder = alwaysOnBehindOf.sortingOrder - 1;
+            }
+        }
+    }
 }

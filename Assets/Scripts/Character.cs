@@ -6,16 +6,28 @@ public class Character : MonoBehaviour {
 
     public CharacterData data;
 
+    public LayerMask shadowCollision;
+
     SpriteRenderer renderer;
     CharacterMotor motor;
 
     Coroutine animationCoroutine;
+
+    SpriteRenderer shadowRenderer;
 
     private CardinalDirection currentDirection;
 
     private void Awake() {
         renderer = transform.GetComponentInChildren<SpriteRenderer>();
         motor = GetComponent<CharacterMotor>();
+
+        // Create shadow
+        GameObject shadow = new GameObject("Shadow");
+        shadowRenderer = shadow.AddComponent<SpriteRenderer>();
+        shadowRenderer.sprite = Resources.Load<Sprite>("shadow");
+        IsoSprite isoSprite = shadow.AddComponent<IsoSprite>();
+        shadow.transform.parent = transform;
+        isoSprite.alwaysOnBehindOf = renderer;
     }
 
     private void Start() {
@@ -24,9 +36,18 @@ public class Character : MonoBehaviour {
     }
 
     private void Update() {
-        if(DetermineDirection() != currentDirection) {
+        if (DetermineDirection() != currentDirection) {
             PlayAnimation(data.graphics.GetAnimation(AnimationType.Running, DetermineDirection()), 0.1f);
             currentDirection = DetermineDirection();
+        }
+
+        // Manage shadow
+        RaycastHit hit;
+        if(Physics.Raycast(transform.position, Vector3.down, out hit, float.MaxValue, shadowCollision)) {
+            shadowRenderer.enabled = true;
+            shadowRenderer.transform.position = hit.point + Vector3.up * 0.5f;
+        } else {
+            shadowRenderer.enabled = false;
         }
     }
 
