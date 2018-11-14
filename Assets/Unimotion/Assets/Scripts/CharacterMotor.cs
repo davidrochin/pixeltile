@@ -54,6 +54,7 @@ public class CharacterMotor : MonoBehaviour {
     public event Action OnWalk;
     public event Action OnStop;
     public event Action OnJump;
+    public event Action OnGroundedChange;
     public event Action OnLand;
     public event Action OnFrameStart;
     public event Action OnFrameFinish;
@@ -105,12 +106,14 @@ public class CharacterMotor : MonoBehaviour {
 
     void Update() {
 
+        groundedAtBeginning = Grounded;
+
         FollowFloor();
 
         if (!ValidatePosition()) { Depenetrate(); }
 
         // Apply gravity if necessary (terminal velocity of a human in freefall is about 53 m/s)
-        if ((!state.grounded || state.sliding) && Vector3.Dot(velocity, Physics.gravity.normalized) < 50f) {
+        if ((!Grounded || state.sliding) && Vector3.Dot(velocity, Physics.gravity.normalized) < 50f) {
             //velocity = velocity + Physics.gravity * 2f * Time.deltaTime;
 
             if (Vector3.Dot(velocity, -Physics.gravity.normalized) >= 0f) {
@@ -122,7 +125,7 @@ public class CharacterMotor : MonoBehaviour {
 
         // Apply movement from input
         Vector3 inputVectorRawCached = inputVector;
-        if (state.grounded || jumpBehaviour == JumpBehaviour.TotalControl) {
+        if (Grounded || jumpBehaviour == JumpBehaviour.TotalControl) {
             inputVector = inputVectorRaw; inputVectorRaw = Vector3.zero;
             Move(inputVector * walkSpeed * Time.deltaTime);
         } else if (jumpBehaviour == JumpBehaviour.FixedVelocity) {
@@ -159,7 +162,7 @@ public class CharacterMotor : MonoBehaviour {
         if (!ValidatePosition()) { Depenetrate(); }
 
         CheckGrounded();
-        if (state.grounded && !state.sliding) {
+        if (Grounded && !state.sliding) {
 
             // Change velocity so it doesnt go towards the floor
             velocity = velocity - Physics.gravity.normalized * Vector3.Dot(velocity, Physics.gravity.normalized);
@@ -179,6 +182,13 @@ public class CharacterMotor : MonoBehaviour {
 
         StickToSlope();
         if (!ValidatePosition()) { Depenetrate(); }
+
+        /// Evento OnGroundedChange
+        if (OnGroundedChange != null && groundedAtBeginning != Grounded) {
+            OnGroundedChange();
+        }
+        
+        // Termina fisicas --------------------------------------------------------------------------
 
         UpdateAnimator();
 
@@ -321,7 +331,7 @@ public class CharacterMotor : MonoBehaviour {
     void CheckGrounded() {
 
         // Save whether if the Character was grounded or not before the check
-        state.previouslyGrounded = state.grounded;
+        state.previouslyGrounded = Grounded;
 
         // Check the floor beneath (even if the Character is not touching it)
         RaycastHit floorHit; bool didHit = Physics.SphereCast(transform.position + transform.up * collider.height - transform.up * collider.radius, collider.radius, -transform.up, out floorHit, float.MaxValue, collisionMask);
@@ -365,19 +375,19 @@ public class CharacterMotor : MonoBehaviour {
 
             // Ground the player if a valid floor was found
             if (validFloor) {
-                state.grounded = true;
+                Grounded = true;
 
                 // If the player was previously ungrounded, run the OnLand event
                 if (state.previouslyGrounded == false && OnLand != null) { OnLand(); }
 
             } else {
-                state.grounded = false;
+                Grounded = false;
                 state.sliding = false;
             }
 
         } else {
             state.sliding = false;
-            state.grounded = false;
+            Grounded = false;
         }
     }
 
@@ -402,7 +412,7 @@ public class CharacterMotor : MonoBehaviour {
             }
 
             //Follow the floor transform if grounded
-            else if (state.grounded) {
+            else if (Grounded) {
 
                 //Follow position
                 transform.position += state.floor.position - state.floorState.position;
@@ -500,7 +510,7 @@ public class CharacterMotor : MonoBehaviour {
             hyp = -Physics.gravity.normalized * (skinWidth / Mathf.Sin(Mathf.Deg2Rad * bottomAngle)) * Mathf.Sin(Mathf.Deg2Rad * 90f);
 
             transform.position += Physics.gravity.normalized * hit.distance + hyp;
-            state.grounded = true;
+            Grounded = true;
         }
     }
 
@@ -576,9 +586,9 @@ public class CharacterMotor : MonoBehaviour {
     }
 
     public void Jump() {
-        if ((state.grounded || Debug.isDebugBuild) && jumpBehaviour != JumpBehaviour.None) {
+        if ((Grounded || Debug.isDebugBuild) && jumpBehaviour != JumpBehaviour.None) {
             velocity = velocity - Physics.gravity.normalized * jumpForce;
-            state.grounded = false;
+            Grounded = false;
             if (OnJump != null) OnJump();
         }
     }
@@ -611,7 +621,7 @@ public class CharacterMotor : MonoBehaviour {
             animator.SetFloat("Max Move Speed", maxWalkMagnitude);
             animator.SetFloat("Upwards Speed", Vector3.Dot(velocity, -Physics.gravity.normalized));
             animator.SetFloat("Sideways Speed", (velocity - Vector3.Project(velocity, -Physics.gravity.normalized)).magnitude);
-            animator.SetBool("Grounded", state.grounded);
+            animator.SetBool("Grounded", Grounded);
             animator.SetBool("Sliding", state.sliding);
             animator.SetBool("Stuck", state.stuck);
         }
@@ -651,12 +661,21 @@ public class CharacterMotor : MonoBehaviour {
     public enum RigidbodyCollisionBehaviour { Ignore, Collide, Push }
     public enum CharacterMotorCollisionBehaviour { Ignore, Collide, Push, SoftPush }
 
+    private bool grounded;
+    private bool groundedAtBeginning;
+    public bool Grounded {
+        get {
+            return grounded;
+        }
+        set {
+            grounded = value;
+        }
+    }
 }
 
 [System.Serializable]
 public class CharacterMotorState {
 
-    public bool grounded;
     public bool sliding;
     public bool previouslyGrounded;
 

@@ -30,7 +30,8 @@ public class IsoSprite : MonoBehaviour {
 
             if (automaticSorting) {
                 if (collider != null) {
-                    renderer.sortingOrder = currentGrid.CalculateSortingOrder(new Vector3(collider.bounds.min.x, transform.position.y, collider.bounds.min.z)) + sortingOffset;
+                    Vector3 boundsMin = new Vector3(collider.bounds.min.x, transform.position.y, collider.bounds.min.z);
+                    renderer.sortingOrder = currentGrid.CalculateSortingOrder(transform.position + (boundsMin - transform.position).normalized * collider.radius) + sortingOffset;
                 } else {
                     renderer.sortingOrder = currentGrid.CalculateSortingOrder(new Vector3(transform.position.x, transform.position.y, transform.position.z)) + sortingOffset;
                 }

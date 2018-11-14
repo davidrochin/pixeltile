@@ -39,10 +39,20 @@ public class Character : MonoBehaviour {
 
             CardinalDirection cardinalDirection = DetermineDirection();
             if (cardinalDirection != currentDirection) {
-                PlayAnimation(data.graphics.GetAnimation(motor.Moving ? AnimationType.Running : AnimationType.Idle, cardinalDirection), 0.1f);
+                if (motor.Grounded) {
+                    PlayAnimation(data.graphics.GetAnimation(motor.Moving ? AnimationType.Running : AnimationType.Idle, cardinalDirection), 0.1f);
+                }
                 currentDirection = cardinalDirection;
             }
             
+        };
+
+        motor.OnGroundedChange += delegate () {
+            if (motor.Grounded) {
+                PlayAnimation(data.graphics.GetAnimation(motor.Moving ? AnimationType.Running : AnimationType.Idle, currentDirection), 0.1f);
+            } else {
+                PlayAnimation(data.graphics.GetAnimation(AnimationType.Falling, currentDirection), 0.1f);
+            }
         };
 
         motor.OnWalk += delegate () {

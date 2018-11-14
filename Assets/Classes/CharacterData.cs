@@ -74,6 +74,29 @@ public class CharacterGraphics {
                     //return GetAnimation(Animation.IdleSE);
                     return GetAnimation(Animation.IdleS);
             }
+        } else if (type == AnimationType.Falling) {
+            switch (direction) {
+                case CardinalDirection.S:
+                    return GetAnimation(Animation.FallingS);
+                case CardinalDirection.SW:
+                    //return GetAnimation(Animation.IdleSW);
+                    return GetAnimation(Animation.FallingS);
+                case CardinalDirection.W:
+                    return GetAnimation(Animation.FallingW);
+                case CardinalDirection.NW:
+                    //return GetAnimation(Animation.IdleNW);
+                    return GetAnimation(Animation.FallingN);
+                case CardinalDirection.N:
+                    return GetAnimation(Animation.FallingN);
+                case CardinalDirection.NE:
+                    //return GetAnimation(Animation.IdleNE);
+                    return GetAnimation(Animation.FallingN);
+                case CardinalDirection.E:
+                    return GetAnimation(Animation.FallingE);
+                case CardinalDirection.SE:
+                    //return GetAnimation(Animation.IdleSE);
+                    return GetAnimation(Animation.FallingS);
+            }
         }
         return GetAnimation(Animation.IdleS);
     }
@@ -83,7 +106,8 @@ public class CharacterGraphics {
         int posX = 0; int posY = ((int)spriteSheet.rect.height - TILE_SIZE_Y) - TILE_SIZE_Y * row;
         int maxSprites = (int)spriteSheet.rect.width / TILE_SIZE_X;
         for (int x = 0; x < maxSprites; x++) {
-            sprites.Add(Sprite.Create(spriteSheet.texture, new Rect(x * TILE_SIZE_X, posY, TILE_SIZE_X, TILE_SIZE_Y), new Vector2(0.5f, pivotHeight), PPU));
+            Sprite cutSprite = Sprite.Create(spriteSheet.texture, new Rect(x * TILE_SIZE_X, posY, TILE_SIZE_X, TILE_SIZE_Y), new Vector2(0.5f, pivotHeight), PPU);
+            sprites.Add(cutSprite);
         }
         return sprites.ToArray();
     }
@@ -101,10 +125,11 @@ public class CharacterGraphics {
 }
 
 public enum AnimationType {
-    Idle, Running
+    Idle, Running, Falling
 }
 
 public enum Animation {
     IdleS, IdleSW, IdleW, IdleNW, IdleN, IdleNE, IdleE, IdleSE,
-    RunningS, RunningSW, RunningW, RunningNW, RunningN, RunningNE, RunningE, RunningSE
+    RunningS, RunningSW, RunningW, RunningNW, RunningN, RunningNE, RunningE, RunningSE,
+    FallingS, FallingSW, FallingW, FallingNW, FallingN, FallingNE, FallingE, FallingSE,
 }

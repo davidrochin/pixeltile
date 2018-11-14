@@ -22382,7 +22382,7 @@ MonoBehaviour:
   turnBehaviour: 3
   turnSpeed: 400
   jumpForce: 5
-  jumpBehaviour: 3
+  jumpBehaviour: 2
   airControl: 4
   canJumpWhileSliding: 1
   collisionMask:
@@ -22406,7 +22406,6 @@ MonoBehaviour:
   animator: {fileID: 0}
   velocity: {x: 0, y: 0, z: 0}
   state:
-    grounded: 0
     sliding: 0
     previouslyGrounded: 0
     stuck: 0
