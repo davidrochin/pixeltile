@@ -28,18 +28,35 @@ public class Character : MonoBehaviour {
         IsoSprite isoSprite = shadow.AddComponent<IsoSprite>();
         shadow.transform.parent = transform;
         isoSprite.alwaysOnBehindOf = renderer;
+        isoSprite.sortingOffset = 1;
     }
 
     private void Start() {
         currentDirection = DetermineDirection();
-        PlayAnimation(data.graphics.GetAnimation(AnimationType.Running, DetermineDirection()), 0.1f);
+        PlayAnimation(data.graphics.GetAnimation(AnimationType.Running, currentDirection), 0.1f);
+
+        motor.OnFrameFinish += delegate () {
+
+            CardinalDirection cardinalDirection = DetermineDirection();
+            if (cardinalDirection != currentDirection) {
+                PlayAnimation(data.graphics.GetAnimation(motor.Moving ? AnimationType.Running : AnimationType.Idle, cardinalDirection), 0.1f);
+                currentDirection = cardinalDirection;
+            }
+            
+        };
+
+        motor.OnWalk += delegate () {
+            CardinalDirection cardinalDirection = DetermineDirection();
+            PlayAnimation(data.graphics.GetAnimation(AnimationType.Running, cardinalDirection), 0.1f);
+        };
+
+        motor.OnStop += delegate () {
+            CardinalDirection cardinalDirection = DetermineDirection();
+            PlayAnimation(data.graphics.GetAnimation(AnimationType.Idle, cardinalDirection), 0.1f);
+        };
     }
 
     private void Update() {
-        if (DetermineDirection() != currentDirection) {
-            PlayAnimation(data.graphics.GetAnimation(AnimationType.Running, DetermineDirection()), 0.1f);
-            currentDirection = DetermineDirection();
-        }
 
         // Manage shadow
         RaycastHit hit;
@@ -60,7 +77,6 @@ public class Character : MonoBehaviour {
 
     public CardinalDirection DetermineDirection() {
         float r = motor.transform.rotation.eulerAngles.y;
-        Debug.Log(r);
         if((r > 337.5 && r <= 361) || (r >= 0f && r <= 22.5)) {
             return CardinalDirection.NW;
         } else if (r > 22.5 && r <= 67.5) {

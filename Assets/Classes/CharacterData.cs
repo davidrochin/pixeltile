@@ -51,6 +51,29 @@ public class CharacterGraphics {
                     //return GetAnimation(Animation.RunningSE);
                     return GetAnimation(Animation.RunningS);
             }
+        } else if (type == AnimationType.Idle) {
+            switch (direction) {
+                case CardinalDirection.S:
+                    return GetAnimation(Animation.IdleS);
+                case CardinalDirection.SW:
+                    //return GetAnimation(Animation.IdleSW);
+                    return GetAnimation(Animation.IdleS);
+                case CardinalDirection.W:
+                    return GetAnimation(Animation.IdleW);
+                case CardinalDirection.NW:
+                    //return GetAnimation(Animation.IdleNW);
+                    return GetAnimation(Animation.IdleN);
+                case CardinalDirection.N:
+                    return GetAnimation(Animation.IdleN);
+                case CardinalDirection.NE:
+                    //return GetAnimation(Animation.IdleNE);
+                    return GetAnimation(Animation.IdleN);
+                case CardinalDirection.E:
+                    return GetAnimation(Animation.IdleE);
+                case CardinalDirection.SE:
+                    //return GetAnimation(Animation.IdleSE);
+                    return GetAnimation(Animation.IdleS);
+            }
         }
         return GetAnimation(Animation.IdleS);
     }

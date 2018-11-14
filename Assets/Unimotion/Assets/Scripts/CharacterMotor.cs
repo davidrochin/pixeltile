@@ -24,7 +24,7 @@ public class CharacterMotor : MonoBehaviour {
     // Jumping
     [Range(1f, 30f)] public float jumpForce = 10f;
     public JumpBehaviour jumpBehaviour = JumpBehaviour.TotalControl;
-    [Range(0f, 10f)]public float airControl = 4f;
+    [Range(0f, 10f)] public float airControl = 4f;
     public bool canJumpWhileSliding = true;
 
     // Masks
@@ -52,12 +52,19 @@ public class CharacterMotor : MonoBehaviour {
     #region Events
 
     public event Action OnWalk;
+    public event Action OnStop;
     public event Action OnJump;
     public event Action OnLand;
     public event Action OnFrameStart;
     public event Action OnFrameFinish;
     public event Action OnDepenetrate;
     public event Action OnCrush;
+
+    #endregion
+
+    #region Properties
+
+    public bool Moving { get { return inputVectorRaw.magnitude > 0f; } }
 
     #endregion
 
@@ -68,9 +75,9 @@ public class CharacterMotor : MonoBehaviour {
 
     new CapsuleCollider collider;
 
-    bool jump; 
+    bool jump;
+    Vector3 inputVectorRaw;
     Vector3 inputVector;
-    Vector3 inputVectorSmoothed;
     public Vector3 inputVectorCached;
 
     public float skinWidth = 0.01f;
@@ -89,7 +96,7 @@ public class CharacterMotor : MonoBehaviour {
 
     void Start() {
         // Test events
-        OnWalk += () => Debug.Log("OnWalk");
+        //OnWalk += () => Debug.Log("OnWalk");
         OnJump += () => Debug.Log("OnJump");
         OnLand += () => Debug.Log("OnLand");
         OnCrush += () => Debug.LogWarning("OnCrush");
@@ -106,7 +113,7 @@ public class CharacterMotor : MonoBehaviour {
         if ((!state.grounded || state.sliding) && Vector3.Dot(velocity, Physics.gravity.normalized) < 50f) {
             //velocity = velocity + Physics.gravity * 2f * Time.deltaTime;
 
-            if(Vector3.Dot(velocity, -Physics.gravity.normalized) >= 0f) {
+            if (Vector3.Dot(velocity, -Physics.gravity.normalized) >= 0f) {
                 velocity = velocity + Physics.gravity * Time.deltaTime;
             } else {
                 velocity = velocity + Physics.gravity * 2f * Time.deltaTime;
@@ -114,16 +121,20 @@ public class CharacterMotor : MonoBehaviour {
         }
 
         // Apply movement from input
-        if(state.grounded || jumpBehaviour == JumpBehaviour.TotalControl) {
-            inputVectorSmoothed = inputVector; inputVector = Vector3.zero;
-            Move(inputVectorSmoothed * walkSpeed * Time.deltaTime);
+        Vector3 inputVectorRawCached = inputVector;
+        if (state.grounded || jumpBehaviour == JumpBehaviour.TotalControl) {
+            inputVector = inputVectorRaw; inputVectorRaw = Vector3.zero;
+            Move(inputVector * walkSpeed * Time.deltaTime);
         } else if (jumpBehaviour == JumpBehaviour.FixedVelocity) {
-            Move(inputVectorSmoothed * walkSpeed * Time.deltaTime);
-        } else if(jumpBehaviour == JumpBehaviour.SmoothControl) {
-            inputVectorSmoothed = Vector3.MoveTowards(inputVectorSmoothed, inputVector, airControl * Time.deltaTime); inputVector = Vector3.zero;
-            Move(inputVectorSmoothed * walkSpeed * Time.deltaTime);
+            Move(inputVector * walkSpeed * Time.deltaTime);
+        } else if (jumpBehaviour == JumpBehaviour.SmoothControl) {
+            inputVector = Vector3.MoveTowards(inputVector, inputVectorRaw, airControl * Time.deltaTime); inputVectorRaw = Vector3.zero;
+            Move(inputVector * walkSpeed * Time.deltaTime);
         }
-        inputVectorCached = inputVectorSmoothed;
+        inputVectorCached = inputVector;
+
+        /// Evento OnStop
+        if(OnStop != null && inputVector.magnitude <= 0f && inputVectorRawCached.magnitude > 0f) { OnStop(); }
 
         // Apply movement from velocity
         Move(velocity * Time.deltaTime);
@@ -148,7 +159,7 @@ public class CharacterMotor : MonoBehaviour {
         if (!ValidatePosition()) { Depenetrate(); }
 
         CheckGrounded();
-        if(state.grounded && !state.sliding) {
+        if (state.grounded && !state.sliding) {
 
             // Change velocity so it doesnt go towards the floor
             velocity = velocity - Physics.gravity.normalized * Vector3.Dot(velocity, Physics.gravity.normalized);
@@ -174,7 +185,7 @@ public class CharacterMotor : MonoBehaviour {
         inputVectorCached = Vector3.zero;
 
         if (OnFrameFinish != null) { OnFrameFinish(); }
-        
+
     }
 
     #region Private methods
@@ -227,7 +238,7 @@ public class CharacterMotor : MonoBehaviour {
             hit = UnimotionUtil.CapsuleCastIgnoreSelf(
                 transform.position + transform.up * collider.radius, transform.position + transform.up * collider.height - transform.up * collider.radius,
                 collider.radius, slideDirection, slideMagnitude, finalCollisionMask, QueryTriggerInteraction.Ignore, collider);
-                lastDistance = (hit.collider != null ? hit.distance : lastDistance);
+            lastDistance = (hit.collider != null ? hit.distance : lastDistance);
             didHit = (hit.collider != null ? true : false);
             lastDistance = (hit.collider != null ? hit.distance : lastDistance);
             lastNormal = (hit.collider != null ? hit.normal : lastNormal);
@@ -256,7 +267,7 @@ public class CharacterMotor : MonoBehaviour {
                 hit = UnimotionUtil.CapsuleCastIgnoreSelf(
                     transform.position + transform.up * collider.radius, transform.position + transform.up * collider.height - transform.up * collider.radius,
                     collider.radius, slideDirection, slideMagnitude, finalCollisionMask, QueryTriggerInteraction.Ignore, collider);
-                    lastDistance = (hit.collider != null ? hit.distance : lastDistance);
+                lastDistance = (hit.collider != null ? hit.distance : lastDistance);
                 didHit = (hit.collider != null ? true : false);
                 lastDistance = (hit.collider != null ? hit.distance : lastDistance);
                 lastNormal = (hit.collider != null ? hit.normal : lastNormal);
@@ -331,16 +342,16 @@ public class CharacterMotor : MonoBehaviour {
             bool validFloor = false;
 
             // Check each hit for valid ground
-            foreach (RaycastHit hit in hits) { 
+            foreach (RaycastHit hit in hits) {
 
                 // Calculate the angle of the floor
                 float angle = Vector3.Angle(-Physics.gravity.normalized, hit.normal);
                 state.floorAngle = angle;
 
                 if (Vector3.Dot(hit.normal, -Physics.gravity.normalized) > 0f && angle < 85f && !(hit.distance == 0f && hit.point == Vector3.zero) && Vector3.Distance(hit.point, GetPartPosition(Part.BottomSphere)) <= collider.radius + skinWidth * 4f) {
-                      
+
                     // Check if it should slide
-                    if(angle < slopeLimit) {
+                    if (angle < slopeLimit) {
                         state.sliding = false;
                     }
 
@@ -518,7 +529,7 @@ public class CharacterMotor : MonoBehaviour {
 
         Collider[] all = Physics.OverlapCapsule(
             transform.position + transform.up * collider.radius,
-            transform.position + transform.up * (collider.height - collider.radius), 
+            transform.position + transform.up * (collider.height - collider.radius),
             collider.radius, mask, queryTriggerInteraction);
 
         for (int i = 0; i < all.Length; i++) {
@@ -559,12 +570,13 @@ public class CharacterMotor : MonoBehaviour {
 
     public void Walk(Vector3 delta) {
         if (walkBehaviour != WalkBehaviour.None) {
-            inputVector = delta;
+            inputVectorRaw = delta;
+            if(OnWalk != null && inputVector.magnitude <= 0f && inputVectorRaw.magnitude > 0f) { OnWalk(); }
         }
     }
 
     public void Jump() {
-        if ((state.grounded || Debug.isDebugBuild) && jumpBehaviour != JumpBehaviour.None ) {
+        if ((state.grounded || Debug.isDebugBuild) && jumpBehaviour != JumpBehaviour.None) {
             velocity = velocity - Physics.gravity.normalized * jumpForce;
             state.grounded = false;
             if (OnJump != null) OnJump();
@@ -602,7 +614,6 @@ public class CharacterMotor : MonoBehaviour {
             animator.SetBool("Grounded", state.grounded);
             animator.SetBool("Sliding", state.sliding);
             animator.SetBool("Stuck", state.stuck);
-
         }
     }
 
@@ -614,7 +625,7 @@ public class CharacterMotor : MonoBehaviour {
     public Vector3 debugPoint2;
 
     private void OnDrawGizmosSelected() {
-        Gizmos.DrawRay(transform.position, inputVectorSmoothed);
+        Gizmos.DrawRay(transform.position, inputVector);
 
         Gizmos.color = Color.red;
         Gizmos.DrawRay(transform.position, debugDirection);
@@ -644,18 +655,13 @@ public class CharacterMotor : MonoBehaviour {
 
 [System.Serializable]
 public class CharacterMotorState {
-    public float forwardMove;
-    public float rightMove;
-    public float moveSpeed;
 
-    public bool moving;
     public bool grounded;
     public bool sliding;
     public bool previouslyGrounded;
 
     public bool stuck;
 
-    public Vector3 lastDelta;
     public float floorAngle;
 
     public Transform floor;
@@ -666,23 +672,7 @@ public class CharacterMotorState {
 
     }
 
-    public void UpdateToAnimator(Animator anim) {
-        //anim.SetFloat("forwardMove", Mathf.MoveTowards(anim.GetFloat("forwardMove"), forwardMove, 1f * Time.deltaTime));
-        //anim.SetFloat("rightMove", Mathf.MoveTowards(anim.GetFloat("rightMove"), rightMove, 1f * Time.deltaTime));
-
-        anim.SetFloat("forwardMove", forwardMove);
-        anim.SetFloat("rightMove", rightMove);
-        anim.SetFloat("moveSpeed", moveSpeed);
-
-        anim.SetBool("grounded", grounded);
-        anim.SetBool("moving", moving);
-
-    }
-
     public void Reset() {
-        forwardMove = 0f;
-        moveSpeed = 0f;
-        rightMove = 0f;
         floor = null;
     }
 }
@@ -690,6 +680,7 @@ public class CharacterMotorState {
 public delegate void Action();
 public delegate void FloatAction(float n);
 
+public delegate void OnWalkHandler(Vector3 direction, float speed);
 public delegate void OnLandHandler(float impactSpeed, float distanceFallen);
 public delegate void OnJumpHandler();
 public delegate void OnCrushHandler();
