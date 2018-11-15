@@ -22382,8 +22382,8 @@ MonoBehaviour:
   turnBehaviour: 3
   turnSpeed: 400
   jumpForce: 5
-  jumpBehaviour: 2
-  airControl: 4
+  jumpBehaviour: 3
+  airControl: 1
   canJumpWhileSliding: 1
   collisionMask:
     serializedVersion: 2

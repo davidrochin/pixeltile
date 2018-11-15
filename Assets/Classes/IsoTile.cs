@@ -23,4 +23,5 @@ public class IsoTile : MonoBehaviour {
 [System.Serializable]
 public class IsoTileSerializable {
     public string spriteName;
+    public GameObject instancedSprite;
 }

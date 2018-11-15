@@ -50,6 +50,7 @@ public class IsoGrid : MonoBehaviour {
                     SpriteRenderer spriteRenderer = tileSpriteObject.AddComponent<SpriteRenderer>();
                     IsoTile isoTile = tileObject.AddComponent<IsoTile>();
                     BoxCollider boxCollider = tileObject.AddComponent<BoxCollider>();
+                    boxCollider.hideFlags = HideFlags.HideInHierarchy;
                     spriteRenderer.sprite = palette.tileData[Random.Range(0, palette.tileData.Count - 1)].sprite;
 
                     // Acomodar
