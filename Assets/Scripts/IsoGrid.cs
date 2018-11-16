@@ -18,7 +18,7 @@ public class IsoGrid : MonoBehaviour {
     void Start() {
         if (loadTestGrid) {
             LoadTestGrid();
-            GenerateSprites();
+            UpdateSprites();
         } 
     }
 
@@ -39,32 +39,45 @@ public class IsoGrid : MonoBehaviour {
         return - x * 100 + y * 100 - z * 100;
     }
 
-    public void GenerateSprites() {
+    public void UpdateSprites() {
         for (int x = 0; x < grid.GetLength(0); x++) {
             for (int y = 0; y < grid.GetLength(1); y++) {
                 for (int z = 0; z < grid.GetLength(2); z++) {
-                    GameObject tileObject = new GameObject("Tile");
-                    GameObject tileSpriteObject = new GameObject("Sprite");
-                    tileSpriteObject.transform.parent = tileObject.transform;
-
-                    SpriteRenderer spriteRenderer = tileSpriteObject.AddComponent<SpriteRenderer>();
-                    IsoTile isoTile = tileObject.AddComponent<IsoTile>();
-                    BoxCollider boxCollider = tileObject.AddComponent<BoxCollider>();
-                    boxCollider.hideFlags = HideFlags.HideInHierarchy;
-                    spriteRenderer.sprite = palette.tileData[Random.Range(0, palette.tileData.Count - 1)].sprite;
-
-                    // Acomodar
-                    tileObject.transform.position = new Vector3(x, y + heightCorrection * y, z);
-
-                    // Ajustar orden
-                    int floorAdition = grid.sizeX * grid.sizeZ;
-                    spriteRenderer.sortingOrder = CalculateSortingOrder(x, y, z);
-
-                    tileObject.transform.parent = transform;
-                    isoTile.CorrectRotation();
+                    UpdateSprite(x, y, z);
                 }
             }
         }
+    }
+
+    public void UpdateSprite(int x, int y, int z) {
+
+        if (grid[x, y, z].instance != null) {
+            DestroyImmediate(grid[x, y, z].instance.gameObject);
+        }
+
+        if (grid[x, y, z].state != CellState.Empty) {
+            GameObject cellObject = new GameObject("Tile");
+            SpriteRenderer cellRenderer = new GameObject("Sprite").AddComponent<SpriteRenderer>();
+            cellRenderer.transform.parent = cellObject.transform;
+
+            IsoCell cell = cellObject.AddComponent<IsoCell>();
+            BoxCollider boxCollider = cellObject.AddComponent<BoxCollider>();
+            boxCollider.hideFlags = HideFlags.HideInHierarchy;
+            cellRenderer.sprite = palette.tileData[Random.Range(0, palette.tileData.Count - 1)].sprite;
+
+            // Acomodar
+            cellObject.transform.position = new Vector3(x, y + heightCorrection * y, z);
+
+            // Ajustar orden
+            int floorAdition = grid.sizeX * grid.sizeZ;
+            cellRenderer.sortingOrder = CalculateSortingOrder(x, y, z);
+
+            cellObject.transform.parent = transform;
+            cell.CorrectRotation();
+
+            // Registrar la instancia
+            grid[x, y, z].instance = cell;
+        } 
     }
 
     public void ClearSprites() {
@@ -74,13 +87,35 @@ public class IsoGrid : MonoBehaviour {
     }
 
     public void LoadTestGrid() {
+        Debug.Log("Loading Test Grid");
         grid = new IsoGridSerializable(8, 8, 8);
         for(int x = 0; x < grid.GetLength(0); x++) {
             for (int y = 0; y < grid.GetLength(1); y++) {
                 for (int z = 0; z < grid.GetLength(2); z++) {
-                    grid[x, y, z] = new IsoTileSerializable() { spriteName = "1" };
+                    grid[x, y, z] = new IsoTileSerializable() { spriteName = "1", state = CellState.Filled };
                 }
             }
+        }
+    }
+
+    public Int3 PointToCoord(Vector3 point) {
+        float level = new Int3(point).y;
+        Vector3 heightCorrected = new Vector3(point.x, point.y + heightCorrection * level, point.z);
+        Int3 rounded = new Int3(heightCorrected);
+        return rounded;
+    }
+
+    public Vector3 CoordToPoint(Int3 coord) {
+        float level = coord.y;
+        return new Vector3(coord.x, coord.y + heightCorrection * level, coord.z);
+    }
+
+    public bool ValidateCoord(Int3 coord) {
+        if(coord.x >= grid.sizeX || coord.y >= grid.sizeY || coord.z >= grid.sizeZ ||
+            coord.x < 0 || coord.y < 0 || coord.z < 0) {
+            return false;
+        } else {
+            return true;
         }
     }
 }
@@ -99,10 +134,10 @@ public class IsoGridSerializable {
 
     public IsoTileSerializable this[int x, int y, int z] {
         get {
-            return gridArray[sizeX * x + sizeY * y + sizeZ * z];
+            return gridArray[x + sizeX * (y + sizeZ * z)];
         }
         set {
-            gridArray[sizeX * x + sizeY * y + sizeZ * z] = value;
+            gridArray[x + sizeX * (y + sizeZ * z)] = value;
         }
     }
 
@@ -116,6 +151,15 @@ public class IsoGridSerializable {
                 return sizeZ;
             default:
                 throw new System.Exception();
+        }
+    }
+
+    public bool InBounds(int x, int y, int z) {
+        if (x < sizeX && y < sizeY && z < sizeZ &&
+            x >= 0 && y >= 0 && z >= 0) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

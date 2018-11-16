@@ -8,8 +8,9 @@ public class IsoGridEditor : Editor {
 
     IsoGrid isoGrid;
 
-    bool buildMode;
+    bool editMode;
     int level;
+    EditMode mode;
     Plane editPlane;
 
     private void OnEnable() {
@@ -21,24 +22,26 @@ public class IsoGridEditor : Editor {
         base.OnInspectorGUI();
 
         GUILayout.BeginHorizontal();
-        if(GUILayout.Button("Rebuild Sprites")) {
+        if (GUILayout.Button("Rebuild Sprites")) {
             isoGrid.ClearSprites();
-            isoGrid.GenerateSprites();
+            isoGrid.UpdateSprites();
         }
         if (GUILayout.Button("Clear Sprites")) {
             isoGrid.ClearSprites();
         }
+        if (GUILayout.Button("Fill")) {
+            isoGrid.LoadTestGrid();
+        }
         GUILayout.EndHorizontal();
 
-        if (!buildMode && GUILayout.Button("Build Mode")) {
-            buildMode = true;
+        if (!editMode && GUILayout.Button("Build Mode")) {
+            editMode = true;
         }
 
-        if (buildMode) {
+        if (editMode) {
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.PrefixLabel("Nivel");
             level = EditorGUILayout.IntSlider(level, 1, isoGrid.grid.sizeY);
-            Debug.Log(isoGrid.heightCorrection * level);
             editPlane = new Plane(Vector3.up, new Vector3(0, (level - 1) + isoGrid.heightCorrection * (level - 1), 0));
             EditorGUILayout.EndHorizontal();
         }
@@ -47,25 +50,68 @@ public class IsoGridEditor : Editor {
     private void OnSceneGUI() {
         Handles.BeginGUI();
 
-        if (GUI.Button(new Rect(5, 5, 100, 20), "Isometric View")) {
+        if (GUI.Button(new Rect(5, 5, 50, 20), "View")) {
             SceneView.lastActiveSceneView.orthographic = true;
             SceneView.lastActiveSceneView.rotation = Quaternion.Euler(30f, 45f, 0f);
         }
 
+        if (editMode) {
+            mode = (EditMode)GUI.SelectionGrid(new Rect(5, 35, 50, 64), (int)mode, new string[] { "Paint", "Erase", "Clear" }, 1);
+        }
+
         Handles.EndGUI();
 
-        if (buildMode) {
+        if (editMode) {
             Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
             float rayHitDistance = 0f; bool onPlane = editPlane.Raycast(ray, out rayHitDistance);
             Vector3 worldPoint = ray.origin + ray.direction * rayHitDistance;
-            worldPoint = new Vector3(Mathf.Round(worldPoint.x), (level - 1) + isoGrid.heightCorrection * (level - 1), Mathf.Round(worldPoint.z));
+            Int3 coord = isoGrid.PointToCoord(worldPoint);
 
-            Handles.color = Color.white;
-            Handles.DrawWireCube(worldPoint, Vector3.one);
+            if (isoGrid.ValidateCoord(coord)) {
+                Handles.color = Color.white;
+            } else {
+                Handles.color = Color.gray;
+            }
+
+            Vector3 markerPos = isoGrid.CoordToPoint(coord);
+            Handles.DrawWireCube(markerPos, Vector3.one);
+
+            // Para no perder el focus
+            if(editMode) {
+                Selection.activeObject = target;
+                HandleUtility.AddDefaultControl(GUIUtility.GetControlID(FocusType.Passive));
+            }
+
+            // Edicion
+            Event currentEvent = Event.current;
+            if ((currentEvent.type == EventType.MouseDown || currentEvent.type == EventType.MouseDrag) && currentEvent.button == 0) {
+                switch (mode) {
+                    case EditMode.Paint: {
+                            break;
+                        }
+                    case EditMode.Erase: {
+                            if (isoGrid.grid.InBounds(coord.x, coord.y, coord.z)) {
+                                isoGrid.grid[coord.x, coord.y, coord.z].state = CellState.Empty;
+                                isoGrid.UpdateSprite(coord.x, coord.y, coord.z);
+                            }
+                            break;
+                        }
+                    case EditMode.Replace: {
+                            break;
+                        }
+                }
+                
+            }
         }
 
-        /*Handles.color = new Color(1f, 0f, 0f, 0.5f);
-        Handles.DrawSolidDisc(new Vector3(0f, level, 0f), Vector3.up, 10f);
-        Gizmos.DrawSphere(isoGrid.transform.position, 10f);*/
+        // Actualizar la interfaz repetidamente
+        SceneView.RepaintAll();
+        //if (Event.current.type == EventType.MouseMove) SceneView.RepaintAll();
     }
+
+    private bool IsValidInGrid(int x, int y, int z) {
+        return true;
+    }
+
+    public enum EditMode { Paint, Erase, Replace }
 }
