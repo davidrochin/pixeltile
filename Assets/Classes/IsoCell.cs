@@ -4,9 +4,8 @@ using UnityEngine;
 
 [SelectionBase]
 public class IsoCell : MonoBehaviour {
-
+    public IsoTile tile;
     public CellState state;
-    public string spriteName;
 
     private void Awake() {
         CorrectRotation();
@@ -20,9 +19,9 @@ public class IsoCell : MonoBehaviour {
 }
 
 [System.Serializable]
-public class IsoTileSerializable {
+public class IsoCellSerializable {
+    public IsoTile tile;
     public CellState state;
-    public string spriteName;
     public IsoCell instance;
 }
 

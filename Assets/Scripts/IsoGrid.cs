@@ -92,7 +92,7 @@ public class IsoGrid : MonoBehaviour {
         for(int x = 0; x < grid.GetLength(0); x++) {
             for (int y = 0; y < grid.GetLength(1); y++) {
                 for (int z = 0; z < grid.GetLength(2); z++) {
-                    grid[x, y, z] = new IsoTileSerializable() { spriteName = "1", state = CellState.Filled };
+                    grid[x, y, z] = new IsoCellSerializable() { tile = palette[0], state = CellState.Filled };
                 }
             }
         }
@@ -123,16 +123,16 @@ public class IsoGrid : MonoBehaviour {
 [System.Serializable]
 public class IsoGridSerializable {
 
-    public IsoTileSerializable[] gridArray;
+    public IsoCellSerializable[] gridArray;
 
     public int sizeX, sizeY, sizeZ;
 
     public IsoGridSerializable(int x, int y, int z) {
         sizeX = x; sizeY = y; sizeZ = z;
-        gridArray = new IsoTileSerializable[x * y * z];
+        gridArray = new IsoCellSerializable[x * y * z];
     }
 
-    public IsoTileSerializable this[int x, int y, int z] {
+    public IsoCellSerializable this[int x, int y, int z] {
         get {
             return gridArray[x + sizeX * (y + sizeZ * z)];
         }
