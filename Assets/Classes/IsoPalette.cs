@@ -5,14 +5,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Data", menuName = "Isometric Tile Palette", order = 1)]
 public class IsoPalette : ScriptableObject {
 
-    public List<IsoTile> tileData;
+    public List<IsoTile> tiles;
 
     public IsoTile this[int i]{
         get {
-            return tileData[i];
+            return tiles[i];
         }
         set {
-            tileData[i] = value;
+            tiles[i] = value;
         }
     }
 
@@ -21,9 +21,5 @@ public class IsoPalette : ScriptableObject {
 [System.Serializable]
 public class IsoTile {
     public Sprite sprite;
-    public IsoTileCollider collider;
-}
-
-public enum IsoTileCollider {
-    Cube, Floor
+    public Mesh mesh;
 }

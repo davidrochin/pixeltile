@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[SelectionBase]
 public class IsoCell : MonoBehaviour {
     public IsoTile tile;
     public CellState state;

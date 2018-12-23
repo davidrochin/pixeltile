@@ -92,7 +92,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 34
+        y: 102
         width: 32
         height: 34
       alignment: 0
@@ -112,7 +112,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
-        y: 34
+        y: 68
         width: 32
         height: 34
       alignment: 0
@@ -151,8 +151,8 @@ TextureImporter:
       name: tiles_3
       rect:
         serializedVersion: 2
-        x: 32
-        y: 0
+        x: 0
+        y: 34
         width: 32
         height: 34
       alignment: 0

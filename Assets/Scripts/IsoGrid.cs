@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[SelectionBase]
 public class IsoGrid : MonoBehaviour {
 
     public IsoPalette palette;
-
     public IsoGridSerializable grid;
 
     public bool loadTestGrid = false;
@@ -63,7 +63,7 @@ public class IsoGrid : MonoBehaviour {
             IsoCell cell = cellObject.AddComponent<IsoCell>();
             BoxCollider boxCollider = cellObject.AddComponent<BoxCollider>();
             boxCollider.hideFlags = HideFlags.HideInHierarchy;
-            cellRenderer.sprite = palette.tileData[Random.Range(0, palette.tileData.Count - 1)].sprite;
+            cellRenderer.sprite = grid[x, y, z].tile.sprite;
 
             // Acomodar
             cellObject.transform.position = new Vector3(x, y + heightCorrection * y, z);

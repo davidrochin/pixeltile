@@ -11,6 +11,204 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4045dbe2dd31c7e46bbaa31a5426d7d4, type: 3}
   m_Name: Palette
   m_EditorClassIdentifier: 
-  tileData:
+  tiles:
   - sprite: {fileID: 21300000, guid: 50ca490b017d2044a858f30adcae418a, type: 3}
-    collider: 0
+    mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  - sprite: {fileID: 21300002, guid: 50ca490b017d2044a858f30adcae418a, type: 3}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 21300004, guid: 50ca490b017d2044a858f30adcae418a, type: 3}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 21300006, guid: 50ca490b017d2044a858f30adcae418a, type: 3}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 21300000, guid: 50ca490b017d2044a858f30adcae418a, type: 3}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 21300000, guid: 50ca490b017d2044a858f30adcae418a, type: 3}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 21300000, guid: 50ca490b017d2044a858f30adcae418a, type: 3}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 21300000, guid: 50ca490b017d2044a858f30adcae418a, type: 3}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 21300000, guid: 50ca490b017d2044a858f30adcae418a, type: 3}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 21300000, guid: 50ca490b017d2044a858f30adcae418a, type: 3}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 21300000, guid: fa0c38fdccb4dbc4f8266ac1e24d4cde, type: 3}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}
+  - sprite: {fileID: 0}
+    mesh: {fileID: 0}

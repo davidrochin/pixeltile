@@ -51,20 +51,30 @@ public class IsoGridEditor : Editor {
     }
 
     private void OnSceneGUI() {
-        Handles.BeginGUI();
 
-        if (GUI.Button(new Rect(5, 5, 50, 20), "View")) {
+        Handles.BeginGUI(); // ---------------------------------------------------------------------------------------
+
+        GUILayout.BeginArea(new Rect(5, 5, 50, 200));        
+
+        if (GUILayout.Button(EditorGUIUtility.IconContent("SceneViewOrtho"), GUILayout.Width(30))) {
             SceneView.lastActiveSceneView.orthographic = true;
             SceneView.lastActiveSceneView.rotation = Quaternion.Euler(30f, 45f, 0f);
         }
 
+        GUILayout.Space(20);
+
         if (editMode) {
-            mode = (EditMode)GUI.SelectionGrid(new Rect(5, 35, 50, 64), (int)mode, new string[] { "Paint", "Erase", "Clear" }, 1);
-
-            GUI.Button(new Rect(5, 99, 15, 40), "<");
+            mode = (EditMode)GUILayout.SelectionGrid((int)mode, new GUIContent[] {
+                EditorGUIUtility.IconContent("Grid.PaintTool"),
+                EditorGUIUtility.IconContent("Grid.EraserTool")}, 1, GUILayout.Width(30));
         }
+        GUILayout.EndArea();
 
-        Handles.EndGUI();
+
+        level = (int)GUI.VerticalSlider(new Rect(Screen.width - 30, Screen.height - 250, 20, 200), level, isoGrid.grid.sizeY, 1);
+        editPlane = new Plane(Vector3.up, new Vector3(0, (level - 1) + isoGrid.heightCorrection * (level - 1), 0));
+
+        Handles.EndGUI(); // -----------------------------------------------------------------------------------------
 
         if (editMode) {
             Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
@@ -80,6 +90,9 @@ public class IsoGridEditor : Editor {
 
             Vector3 markerPos = isoGrid.CoordToPoint(coord);
             Handles.DrawWireCube(markerPos, Vector3.one);
+
+            // Dibujar el Sprite
+            //Handles.
 
             // Para no perder el focus
             if(editMode) {
