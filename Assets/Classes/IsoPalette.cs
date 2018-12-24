@@ -22,4 +22,5 @@ public class IsoPalette : ScriptableObject {
 public class IsoTile {
     public Sprite sprite;
     public Mesh mesh;
+    public int offsetY = 0;
 }

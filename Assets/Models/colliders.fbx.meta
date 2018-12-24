@@ -1,0 +1,155 @@
+fileFormatVersion: 2
+guid: bf1d2d0c541d19d408aa65af589f32bd
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: collider_cube
+    100002: collider_half_east
+    100004: collider_half_high
+    100006: collider_half_low
+    100008: collider_half_north
+    100010: collider_half_south
+    100012: collider_half_west
+    100014: collider_ramp_north
+    100016: //RootNode
+    100018: collider_half
+    100020: collider_half_ramp
+    100022: collider_ramp
+    100024: collider_half_ramp_corner
+    100026: collider_ramp_corner
+    400000: collider_cube
+    400002: collider_half_east
+    400004: collider_half_high
+    400006: collider_half_low
+    400008: collider_half_north
+    400010: collider_half_south
+    400012: collider_half_west
+    400014: collider_ramp_north
+    400016: //RootNode
+    400018: collider_half
+    400020: collider_half_ramp
+    400022: collider_ramp
+    400024: collider_half_ramp_corner
+    400026: collider_ramp_corner
+    2100000: No Name
+    2300000: collider_cube
+    2300002: collider_half_east
+    2300004: collider_half_high
+    2300006: collider_half_low
+    2300008: collider_half_north
+    2300010: collider_half_south
+    2300012: collider_half_west
+    2300014: collider_ramp_north
+    2300016: collider_half
+    2300018: collider_half_ramp
+    2300020: collider_ramp
+    2300022: collider_half_ramp_corner
+    2300024: collider_ramp_corner
+    3300000: collider_cube
+    3300002: collider_half_east
+    3300004: collider_half_high
+    3300006: collider_half_low
+    3300008: collider_half_north
+    3300010: collider_half_south
+    3300012: collider_half_west
+    3300014: collider_ramp_north
+    3300016: collider_half
+    3300018: collider_half_ramp
+    3300020: collider_ramp
+    3300022: collider_half_ramp_corner
+    3300024: collider_ramp_corner
+    4300000: collider_ramp_north
+    4300002: collider_half_east
+    4300004: collider_half_west
+    4300006: collider_half_south
+    4300008: collider_half_north
+    4300010: collider_half_high
+    4300012: collider_half_low
+    4300014: collider_cube
+    4300016: collider_half_ramp
+    4300018: collider_ramp
+    4300020: collider_half
+    4300022: collider_half_ramp_corner
+    4300024: collider_ramp_corner
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

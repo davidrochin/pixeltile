@@ -6,6 +6,10 @@ TextureImporter:
     21300002: tiles_1
     21300004: tiles_2
     21300006: tiles_3
+    21300008: tiles_base_0
+    21300010: tiles_base_1
+    21300012: tiles_base_2
+    21300014: tiles_base_3
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -88,7 +92,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tiles_0
+      name: tiles_base_0
       rect:
         serializedVersion: 2
         x: 0
@@ -96,19 +100,19 @@ TextureImporter:
         width: 32
         height: 34
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 005d38285444f084d80684f3bb8be867
+      spriteID: aa9d49a0aa0166946aca37c28887167c
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tiles_1
+      name: tiles_base_1
       rect:
         serializedVersion: 2
         x: 32
@@ -116,39 +120,19 @@ TextureImporter:
         width: 32
         height: 34
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4685e41eb2f7f254e8ea66c77ab5fed3
+      spriteID: a5eb58f74c780414f9218ee7f2074d5c
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tiles_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 32
-        height: 34
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bb06a103d63b3f04d8f20812395ed577
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tiles_3
+      name: tiles_base_2
       rect:
         serializedVersion: 2
         x: 0
@@ -156,13 +140,33 @@ TextureImporter:
         width: 32
         height: 34
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: de5e5cce844b8314f9f8e39e23ecee89
+      spriteID: cae1df141557ea34a9017ace084120eb
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiles_base_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 32
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 364ce6cda2debee49af1a29720351a39
       vertices: []
       indices: 
       edges: []

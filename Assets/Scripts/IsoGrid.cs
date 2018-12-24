@@ -51,33 +51,45 @@ public class IsoGrid : MonoBehaviour {
 
     public void UpdateSprite(int x, int y, int z) {
 
+        if(y == 7 && x == 1 && z == 1) {
+            Debug.Log("Hi");
+        }
+
         if (grid[x, y, z].instance != null) {
             DestroyImmediate(grid[x, y, z].instance.gameObject);
         }
 
         if (grid[x, y, z].state != CellState.Empty) {
+
+            IsoTile tile = grid[x, y, z].tile;
+
             GameObject cellObject = new GameObject("Tile");
             SpriteRenderer cellRenderer = new GameObject("Sprite").AddComponent<SpriteRenderer>();
             cellRenderer.transform.parent = cellObject.transform;
 
             IsoCell cell = cellObject.AddComponent<IsoCell>();
-            BoxCollider boxCollider = cellObject.AddComponent<BoxCollider>();
-            boxCollider.hideFlags = HideFlags.HideInHierarchy;
-            cellRenderer.sprite = grid[x, y, z].tile.sprite;
+
+            MeshCollider collider = cellObject.AddComponent<MeshCollider>();
+            collider.hideFlags = HideFlags.HideInHierarchy;
+
+            if(tile.mesh != null) {
+                collider.sharedMesh = tile.mesh;
+            }
+            
+            cellRenderer.sprite = tile.sprite;
 
             // Acomodar
             cellObject.transform.position = new Vector3(x, y + heightCorrection * y, z);
 
             // Ajustar orden
-            int floorAdition = grid.sizeX * grid.sizeZ;
-            cellRenderer.sortingOrder = CalculateSortingOrder(x, y, z);
+            cellRenderer.sortingOrder = CalculateSortingOrder(x, y + tile.offsetY, z);
 
             cellObject.transform.parent = transform;
             cell.CorrectRotation();
 
             // Registrar la instancia
             grid[x, y, z].instance = cell;
-        } 
+        }
     }
 
     public void ClearSprites() {

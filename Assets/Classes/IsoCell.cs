@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class IsoCell : MonoBehaviour {
-    public IsoTile tile;
-    public CellState state;
+    //public IsoTile tile;
+    //public CellState state;
 
     private void Awake() {
         CorrectRotation();
@@ -19,6 +19,7 @@ public class IsoCell : MonoBehaviour {
 
 [System.Serializable]
 public class IsoCellSerializable {
+
     public IsoTile tile;
     public CellState state;
     public IsoCell instance;

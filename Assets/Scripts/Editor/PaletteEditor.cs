@@ -34,6 +34,7 @@ public class PaletteEditor : Editor {
         if (tile != null) {
             EditorGUILayout.PropertyField(serializedObject.FindProperty("tiles").GetArrayElementAtIndex(selected).FindPropertyRelative("sprite"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("tiles").GetArrayElementAtIndex(selected).FindPropertyRelative("mesh"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("tiles").GetArrayElementAtIndex(selected).FindPropertyRelative("offsetY"));
         }
 
         GUILayout.Space(20);
