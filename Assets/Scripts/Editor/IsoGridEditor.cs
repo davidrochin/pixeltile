@@ -64,6 +64,14 @@ public class IsoGridEditor : Editor {
 
     private void OnSceneGUI() {
 
+        IsoCell[] cells = isoGrid.GetAllCells();
+        foreach (IsoCell c in cells) {
+            MeshRenderer renderer = c.GetComponent<MeshRenderer>();
+            if(c != null) {
+                EditorUtility.SetSelectedRenderState(renderer, EditorSelectedRenderState.Hidden);
+            }
+        }
+
         Handles.BeginGUI(); // ---------------------------------------------------------------------------------------
 
         GUILayout.BeginArea(new Rect(5, 5, 50, 200));        
@@ -101,7 +109,8 @@ public class IsoGridEditor : Editor {
             Vector3 worldPoint = ray.origin + ray.direction * rayHitDistance;
             Int3 coord = isoGrid.PointToCoord(worldPoint);
 
-            Vector3 markerPos = isoGrid.CoordToPoint(coord);
+            //Vector3 markerPos = isoGrid.CoordToPoint(coord);
+            Vector3 markerPos = isoGrid.PointToGrid(worldPoint);
 
             // Revisar si la coordenada es válida
             if (isoGrid.ValidateCoord(coord)) {

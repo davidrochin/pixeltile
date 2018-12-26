@@ -15,54 +15,72 @@ MonoBehaviour:
   - sprite: {fileID: 21300008, guid: fa0c38fdccb4dbc4f8266ac1e24d4cde, type: 3}
     mesh: {fileID: 4300014, guid: bf1d2d0c541d19d408aa65af589f32bd, type: 3}
     offsetY: 0
+    rotation: 0
   - sprite: {fileID: 21300010, guid: fa0c38fdccb4dbc4f8266ac1e24d4cde, type: 3}
     mesh: {fileID: 4300012, guid: bf1d2d0c541d19d408aa65af589f32bd, type: 3}
     offsetY: 0
+    rotation: 0
   - sprite: {fileID: 21300012, guid: fa0c38fdccb4dbc4f8266ac1e24d4cde, type: 3}
     mesh: {fileID: 4300010, guid: bf1d2d0c541d19d408aa65af589f32bd, type: 3}
     offsetY: 0
+    rotation: 0
   - sprite: {fileID: 21300024, guid: fa0c38fdccb4dbc4f8266ac1e24d4cde, type: 3}
     mesh: {fileID: 4300018, guid: bf1d2d0c541d19d408aa65af589f32bd, type: 3}
     offsetY: -1
+    rotation: 0
   - sprite: {fileID: 21300026, guid: fa0c38fdccb4dbc4f8266ac1e24d4cde, type: 3}
     mesh: {fileID: 4300018, guid: bf1d2d0c541d19d408aa65af589f32bd, type: 3}
     offsetY: -1
+    rotation: 90
   - sprite: {fileID: 21300028, guid: fa0c38fdccb4dbc4f8266ac1e24d4cde, type: 3}
     mesh: {fileID: 4300018, guid: bf1d2d0c541d19d408aa65af589f32bd, type: 3}
     offsetY: -1
+    rotation: 180
   - sprite: {fileID: 21300030, guid: fa0c38fdccb4dbc4f8266ac1e24d4cde, type: 3}
     mesh: {fileID: 4300018, guid: bf1d2d0c541d19d408aa65af589f32bd, type: 3}
     offsetY: -1
+    rotation: 270
   - sprite: {fileID: 21300016, guid: fa0c38fdccb4dbc4f8266ac1e24d4cde, type: 3}
     mesh: {fileID: 4300016, guid: bf1d2d0c541d19d408aa65af589f32bd, type: 3}
     offsetY: 0
+    rotation: 0
   - sprite: {fileID: 21300018, guid: fa0c38fdccb4dbc4f8266ac1e24d4cde, type: 3}
     mesh: {fileID: 4300016, guid: bf1d2d0c541d19d408aa65af589f32bd, type: 3}
     offsetY: 0
+    rotation: 90
   - sprite: {fileID: 21300020, guid: fa0c38fdccb4dbc4f8266ac1e24d4cde, type: 3}
     mesh: {fileID: 4300016, guid: bf1d2d0c541d19d408aa65af589f32bd, type: 3}
     offsetY: 0
+    rotation: 180
   - sprite: {fileID: 21300022, guid: fa0c38fdccb4dbc4f8266ac1e24d4cde, type: 3}
     mesh: {fileID: 4300016, guid: bf1d2d0c541d19d408aa65af589f32bd, type: 3}
     offsetY: 0
+    rotation: 270
   - sprite: {fileID: 21300032, guid: fa0c38fdccb4dbc4f8266ac1e24d4cde, type: 3}
     mesh: {fileID: 4300024, guid: bf1d2d0c541d19d408aa65af589f32bd, type: 3}
     offsetY: -1
+    rotation: 0
   - sprite: {fileID: 21300034, guid: fa0c38fdccb4dbc4f8266ac1e24d4cde, type: 3}
     mesh: {fileID: 4300024, guid: bf1d2d0c541d19d408aa65af589f32bd, type: 3}
     offsetY: -1
+    rotation: 90
   - sprite: {fileID: 21300036, guid: fa0c38fdccb4dbc4f8266ac1e24d4cde, type: 3}
     mesh: {fileID: 4300024, guid: bf1d2d0c541d19d408aa65af589f32bd, type: 3}
     offsetY: -1
+    rotation: 180
   - sprite: {fileID: 21300038, guid: fa0c38fdccb4dbc4f8266ac1e24d4cde, type: 3}
     mesh: {fileID: 4300024, guid: bf1d2d0c541d19d408aa65af589f32bd, type: 3}
     offsetY: -1
+    rotation: 270
   - sprite: {fileID: 21300040, guid: fa0c38fdccb4dbc4f8266ac1e24d4cde, type: 3}
     mesh: {fileID: 4300018, guid: bf1d2d0c541d19d408aa65af589f32bd, type: 3}
     offsetY: -1
+    rotation: 0
   - sprite: {fileID: 21300042, guid: fa0c38fdccb4dbc4f8266ac1e24d4cde, type: 3}
     mesh: {fileID: 4300024, guid: bf1d2d0c541d19d408aa65af589f32bd, type: 3}
     offsetY: -1
+    rotation: 90
   - sprite: {fileID: 21300014, guid: fa0c38fdccb4dbc4f8266ac1e24d4cde, type: 3}
-    mesh: {fileID: 0}
+    mesh: {fileID: 4300026, guid: bf1d2d0c541d19d408aa65af589f32bd, type: 3}
     offsetY: -1
+    rotation: 0

@@ -17,6 +17,7 @@ ModelImporter:
     100022: collider_ramp
     100024: collider_half_ramp_corner
     100026: collider_ramp_corner
+    100028: collider_plane
     400000: collider_cube
     400002: collider_half_east
     400004: collider_half_high
@@ -31,6 +32,7 @@ ModelImporter:
     400022: collider_ramp
     400024: collider_half_ramp_corner
     400026: collider_ramp_corner
+    400028: collider_plane
     2100000: No Name
     2300000: collider_cube
     2300002: collider_half_east
@@ -45,6 +47,7 @@ ModelImporter:
     2300020: collider_ramp
     2300022: collider_half_ramp_corner
     2300024: collider_ramp_corner
+    2300026: collider_plane
     3300000: collider_cube
     3300002: collider_half_east
     3300004: collider_half_high
@@ -58,6 +61,7 @@ ModelImporter:
     3300020: collider_ramp
     3300022: collider_half_ramp_corner
     3300024: collider_ramp_corner
+    3300026: collider_plane
     4300000: collider_ramp_north
     4300002: collider_half_east
     4300004: collider_half_west
@@ -71,6 +75,7 @@ ModelImporter:
     4300020: collider_half
     4300022: collider_half_ramp_corner
     4300024: collider_ramp_corner
+    4300026: collider_plane
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -110,7 +115,7 @@ ModelImporter:
     importCameras: 1
     importLights: 1
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0

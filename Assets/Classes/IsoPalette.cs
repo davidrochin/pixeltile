@@ -20,7 +20,12 @@ public class IsoPalette : ScriptableObject {
 
 [System.Serializable]
 public class IsoTile {
+
     public Sprite sprite;
     public Mesh mesh;
     public int offsetY = 0;
+
+    [Range(0, 270)]
+    public int rotation = 0;
+
 }
