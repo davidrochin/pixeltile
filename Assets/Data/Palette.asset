@@ -84,3 +84,7 @@ MonoBehaviour:
     mesh: {fileID: 4300026, guid: bf1d2d0c541d19d408aa65af589f32bd, type: 3}
     offsetY: -1
     rotation: 0
+  - sprite: {fileID: 21300056, guid: fa0c38fdccb4dbc4f8266ac1e24d4cde, type: 3}
+    mesh: {fileID: 4300014, guid: bf1d2d0c541d19d408aa65af589f32bd, type: 3}
+    offsetY: 0
+    rotation: 0
